@@ -8,7 +8,7 @@ const app = express();
 const readNote = util.promisify(fs.readFile);
 const writeNote = util.promisify(fs.writeFile);
 
-class save {
+class Save {
     constructor(){
         this.note = 0;
     };
@@ -33,13 +33,12 @@ class save {
         return this.getNotes().then(notes => {
             const newNoteList = [...notes, newNote]; 
             console.log(newNoteList);
-            // Step 1: convert to a string
             return this.write(newNoteList);
         })
     
     };
 };
 
-// const save = new save();
 
-// module.exports = save;
+
+module.exports = new Save;
