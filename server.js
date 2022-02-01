@@ -5,7 +5,7 @@ const api = require("./routes/apiRoutes");
 const html = require("./routes/htmlRoutes")
 const app = express();
 // port
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3000;
 
 // app express ()
 app.use(express.urlencoded({extended: true}));
@@ -16,6 +16,4 @@ app.use('/api', api);
 app.use('/', html);
 
 // listener
-app.listen(PORT, () =>
-    console.log(`Ready on port ${PORT}`)
-);
+app.listen(PORT, () => console.log(`Ready on port ${PORT}`));

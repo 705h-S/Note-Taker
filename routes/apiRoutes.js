@@ -4,7 +4,7 @@ const save = require('../db/save');
 const db = require('../db/db.json');
 
 
-eRoute.get('public/notes.html',function (reg, res) {
+eRoute.get('/notes',function (reg, res) {
     save 
     .getNotes()
     .then(notes => res.json(notes))
