@@ -4,7 +4,7 @@ const eRoute = require('express').Router();
 
 // This has to be on the top than the other routers
 eRoute.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/note.html'));
+    res.sendFile(path.join(__dirname, '../public/notes.html'));
 });
 
 eRoute.get('/', (req, res) => {
