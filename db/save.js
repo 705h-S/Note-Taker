@@ -40,4 +40,6 @@ class save {
     };
 };
 
+const save = new save();
 
+module.exports = save;
