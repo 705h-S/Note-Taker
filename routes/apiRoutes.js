@@ -1,21 +1,37 @@
-const eRoute = require('express').Router();
+
 const fs = require('fs');
-const save = require('../db/save');
-const db = require('../db/db.json');
+const util = require('util');
 
 
-eRoute.get('/notes',function (reg, res) {
-    save 
-    .getNotes()
-    .then(notes => res.json(notes))
-    .catch(err => res.status(500).json(err))
-});
-eRoute.post('/notes', (req, res) => {
-    save
-    .saveNote(req.body)
-    .then((note) => res.json(note))
-    .catch(err => res.status(500).json(err));
-});
 
 
-module.exports = eRoute;
+const readFromFile = util.promisify(fs.readFile);
+/**
+ *  Function to write data to the JSON file given a destination and some content
+ *  @param {string} destination The file you want to write to.
+ *  @param {object} content The content you want to write to the file.
+ *  @returns {void} Nothing
+ */
+const writeToFile = (destination, content) =>
+  fs.writeFile(destination, JSON.stringify(content, null, 4), (err) =>
+    err ? console.error(err) : console.info(`\nData written to ${destination}`)
+  );
+/**
+ *  Function to read data from a given a file and append some content
+ *  @param {object} content The content you want to append to the file.
+ *  @param {string} file The path to the file you want to save to.
+ *  @returns {void} Nothing
+ */
+const readAndAppend = (content, file) => {
+  fs.readFile(file, 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+    } else {
+      const parsedData = JSON.parse(data);
+      parsedData.push(content);
+      writeToFile(file, parsedData);
+    }
+  });
+};
+
+module.exports = { readFromFile, writeToFile, readAndAppend };
